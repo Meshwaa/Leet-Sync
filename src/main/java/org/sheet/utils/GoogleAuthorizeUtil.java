@@ -26,7 +26,7 @@ public class GoogleAuthorizeUtil {
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
     private static final String CREDENTIALS_FILE_PATH = "/google-sheets-client-secret.json";
 
-    public static Credential authorize(final NetHttpTransport HTTP_TRANSPORT) throws IOException, GeneralSecurityException {
+    public static Credential authorize(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
 
         InputStream in = GoogleAuthorizeUtil.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {

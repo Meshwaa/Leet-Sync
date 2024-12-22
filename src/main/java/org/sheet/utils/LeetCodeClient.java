@@ -1,11 +1,7 @@
 package org.sheet.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.services.sheets.v4.model.CellFormat;
-import com.google.api.services.sheets.v4.model.Color;
-import com.google.api.services.sheets.v4.model.TextFormat;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,13 +15,13 @@ import java.util.concurrent.*;
 
 public class LeetCodeClient {
     private static HttpClient httpClient = null;
-    public static List<List<Object>> fetchLeetcodeStatuses(List<String> titleSlugs, String username) throws JsonProcessingException {
+
+    public static List<String> fetchLeetcodeStatuses(List<String> titleSlugs, String username) {
         if (httpClient == null) {
             httpClient = HttpClient.newHttpClient();
         }
-
         // Prepare an ExecutorService to fetch the status asynchronously
-        ExecutorService executorService = Executors.newFixedThreadPool(25);
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
         List<Callable<String>> tasks = new ArrayList<>();
 
         // Iterate over titleSlugs and create tasks
@@ -36,11 +32,11 @@ public class LeetCodeClient {
         // Invoke the tasks asynchronously and collect the results
         try {
             List<Future<String>> futures = executorService.invokeAll(tasks);
-            List<List<Object>> statuses = new ArrayList<>();
+            List<String> statuses = new ArrayList<>();
 
             // Collect results from futures
             for (Future<String> future : futures) {
-                statuses.add(List.of(future.get())); // blocking call, adding status to the list
+                statuses.add(future.get()); // blocking call, adding status to the list
             }
             executorService.shutdown();
             return statuses;
