@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SheetManipulator {
-    final static String spreadsheetId = "1TUG8nPzN-GhOTH-PAVlWYYeLoKKd8CrorgEBAcD8NK8";
+    final static String spreadsheetId = "your-spreadsheet-id";
 
     public static void main(String[] args) throws GeneralSecurityException, IOException {
         Sheets service = SheetsServiceUtil.getSheetsService();
@@ -36,7 +36,7 @@ public class SheetManipulator {
 
     private static void updateStatusInSheet(Sheets sheetsService, List<String> titleSlugs, Sheet sheet) throws IOException {
         // Fetch the status list using LeetCodeClient
-        List<String> statusList = LeetCodeClient.fetchLeetcodeStatuses(titleSlugs, "Meshwa_p");
+        List<String> statusList = LeetCodeClient.fetchLeetcodeStatuses(titleSlugs, "your-leetcode-username");
         System.out.println(statusList);
 
         List<Request> requests = new ArrayList<>();
